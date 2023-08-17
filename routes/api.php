@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\Api\Vendor\PrimaryServicesMasterController;
+use App\Http\Controllers\Api\Vendor\SecondaryServicesMasterController;
+use App\Http\Controllers\Api\Vendor\UserController;
 use App\Http\Controllers\Api\Vendor\VendorController;
+use App\Http\Controllers\Api\Vendor\VendorPrimaryServiceController;
+use App\Http\Controllers\Api\Vendor\VendorSecondaryServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +23,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('vendor_list',[VendorController::class,'vendor_list'])->name('vendor_list');
-Route::get('single_vendor/{id?}',[VendorController::class,'single_vendor'])->name('single_vendor');
-Route::post('register',[VendorController::class,'register'])->name('register');
-Route::post('login',[VendorController::class,'login'])->name('login');
-Route::post('vendor_edit_Profile/{id?}',[VendorController::class,'vendor_edit_Profile'])->name('vendor_edit_Profile');
+// Route::post('vendorregister', [VendorController::class, 'register']);
 
+Route::post('Vendor/login', [VendorController::class, 'authenticate']);
+Route::post('register', [UserController::class, 'register']);
+
+Route::get('primary_service_list',[PrimaryServicesMasterController::class,'get_primary_service']);
+Route::get('secondary_service_list/{id?}',[SecondaryServicesMasterController::class,'get_secondary_service']);
+
+Route::get('vendor_secondary_service/{id?}',[VendorSecondaryServiceController::class,'vendor_secondary_service']);
+Route::get('vendor_primary_service/{id?}',[VendorPrimaryServiceController::class,'get_vendor_primary_service']);

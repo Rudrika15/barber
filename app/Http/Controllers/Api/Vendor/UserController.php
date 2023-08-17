@@ -1,25 +1,28 @@
 <?php
 
 namespace App\Http\Controllers\Api\Vendor;
+
 use JWTAuth;
 use App\Http\Controllers\Controller;
-use App\Models\Vendor;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Validator;
 
-class VendorController extends Controller
+class UserController extends Controller
 {
+    //
     public function register(Request $request)
     {
     	//Validate data
-        $data = $request->only('mobile', 'businessName', 'personFName','personLName');
+        $data = $request->only('mobile', 'businessName', 'personFName','personLName','email');
         $validator = Validator::make($data, [
             'mobile' => 'required',
             'businessName' => 'required',
             'personFName' => 'required',
-            'personLName' => 'required'
+            'personLName' => 'required',
+            'email' => 'required|email|unique:users',
         ]);
 
         //Send failed response if request is not valid
@@ -28,13 +31,15 @@ class VendorController extends Controller
         }
 
         //Request is valid, create new user
-        $vendor = Vendor::create([
+        $vendor =User::create([
         	'businessName' => $request->businessName,
         	'personFName' => $request->personFName,
         	'personLName' => $request->personLName,
-            'mobile'=>$request->mobile
+            'mobile'=>$request->mobile,
+            'email'=>$request->email,
+            'password'=>'-',
         ]);
-
+        $vendor->assignRole('Vendor');
         //vendor created, return success response
         return response()->json([
             'success' => true,
@@ -81,6 +86,4 @@ class VendorController extends Controller
             'token' => $token,
         ]);
     }
-
-     
 }
