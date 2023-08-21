@@ -3,15 +3,21 @@
 namespace App\Http\Controllers\Api\Vendor;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\VendorPrimaryService;
 use App\Models\VendorSecondaryService;
 use Illuminate\Http\Request;
 
 class VendorSecondaryServiceController extends Controller
 {
-    //
     function vendor_secondary_service($id){
         try{
-            $vednorSecondaryService=VendorSecondaryService::where('vendorId','=',$id)->get();
+            
+            $vednorSecondaryService=VendorPrimaryService::where('vendorId','=',$id)
+            ->with('vendor_secondary_services')
+            ->get();
+
+            
             if($vednorSecondaryService){
                 return response([
                     'success'=>true,

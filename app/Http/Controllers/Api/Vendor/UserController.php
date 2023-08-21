@@ -16,36 +16,46 @@ class UserController extends Controller
     public function register(Request $request)
     {
     	//Validate data
-        $data = $request->only('mobile', 'businessName', 'personFName','personLName','email');
-        $validator = Validator::make($data, [
-            'mobile' => 'required',
-            'businessName' => 'required',
-            'personFName' => 'required',
-            'personLName' => 'required',
-            'email' => 'required|email|unique:users',
-        ]);
+        try{
+            $data = $request->only('mobile', 'businessName', 'personFName','personLName','email');
+            $validator = Validator::make($data, [
+                'mobile' => 'required',
+                'businessName' => 'required',
+                'personFName' => 'required',
+                'personLName' => 'required',
+            ]);
 
-        //Send failed response if request is not valid
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
+            //Send failed response if request is not valid
+            if ($validator->fails()) {
+                return response()->json(['error' => $validator->messages()], 200);
+            }
+
+            //Request is valid, create new user
+            $vendor =User::create([
+                'businessName' => $request->businessName,
+                'personFName' => $request->personFName,
+                'personLName' => $request->personLName,
+                'mobile'=>$request->mobile,
+                'email'=>'aaa@gmail.com',
+                'password'=>'-',
+            ]);
+            $vendor->assignRole('Vendor');
+            //vendor created, return success response
+            return response()->json([
+                'success' => true,
+                'message' => 'Vendor created successfully',
+                'data' => $vendor
+            ], Response::HTTP_OK);
         }
-
-        //Request is valid, create new user
-        $vendor =User::create([
-        	'businessName' => $request->businessName,
-        	'personFName' => $request->personFName,
-        	'personLName' => $request->personLName,
-            'mobile'=>$request->mobile,
-            'email'=>$request->email,
-            'password'=>'-',
-        ]);
-        $vendor->assignRole('Vendor');
-        //vendor created, return success response
-        return response()->json([
-            'success' => true,
-            'message' => 'Vendor created successfully',
-            'data' => $vendor
-        ], Response::HTTP_OK);
+        catch (\Exception $e) {
+            return response([
+                'success' => false,
+                'message' => 'An error occurred while processing your request.',
+                'status' => 500,
+                'error' => $e->getMessage()
+            ]);
+        }
+        
     }
 
     public function authenticate(Request $request)

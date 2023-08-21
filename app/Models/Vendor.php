@@ -14,7 +14,7 @@ class Vendor extends Model
     protected $fillable = [
         'businessName', 'personFName', 'personLName','mobile',
     ];
-    function primary_services(){
+    function vendor_primary_services(){
         return $this->hasMany(VendorPrimaryService::class,'vendorId','id');
     }
     function seconday_service(){
