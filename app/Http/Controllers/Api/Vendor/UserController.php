@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Vendor;
 use JWTAuth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,6 +42,10 @@ class UserController extends Controller
             ]);
             $vendor->assignRole('Vendor');
             //vendor created, return success response
+            $vendorProfile=new Vendor();
+            $vendorProfile->userId=$vendor->id;
+            $vendorProfile->save();
+            
             return response()->json([
                 'success' => true,
                 'message' => 'Vendor created successfully',

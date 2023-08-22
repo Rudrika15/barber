@@ -21,11 +21,7 @@ class VendorPrimaryService extends Model
     }
     public function vendor_secondary_services()
     {
-        return $this->hasMany(VendorSecondaryService::class,'vendorId');
+        return $this->hasMany(VendorSecondaryService::class,'primaryId');
     }
-   
-    // public function vendor_secondary_services()
-    // {
-    //     return $this->hasMany(VendorSecondaryService::class, 'vendorId','vendorId');
-    // }
+
 }

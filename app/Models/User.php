@@ -57,11 +57,5 @@ class User extends Authenticatable
 
     function vendor_primary_services(){
         return $this->hasMany(VendorPrimaryService::class,'vendorId');
-    }
-    function vendor_secondary_services(){
-        return $this->hasMany(VendorSecondaryService::class,'vendorId');
-    }
-
-           
-                
+    }           
 }

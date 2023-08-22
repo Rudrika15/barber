@@ -31,5 +31,5 @@ Route::post('register', [UserController::class, 'register']);
 Route::get('primary_service_list',[PrimaryServicesMasterController::class,'get_primary_service']);
 Route::get('secondary_service_list',[SecondaryServicesMasterController::class,'get_secondary_service']);
 
-Route::get('vendor_secondary_service/{id?}',[VendorSecondaryServiceController::class,'vendor_secondary_service']);
+Route::get('vendor_service/{id?}',[VendorSecondaryServiceController::class,'vendor_secondary_service']);
 Route::get('vendor_primary_service/{id?}',[VendorPrimaryServiceController::class,'get_vendor_primary_service']);
