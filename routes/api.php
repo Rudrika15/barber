@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\Vendor\SecondaryServicesMasterController;
 use App\Http\Controllers\Api\Vendor\UserController;
 use App\Http\Controllers\Api\Vendor\VendorController;
 use App\Http\Controllers\Api\Vendor\VendorPrimaryServiceController;
+use App\Http\Controllers\Api\Vendor\VendorScheduleController;
 use App\Http\Controllers\Api\Vendor\VendorSecondaryServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,8 +29,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('Vendor/login', [VendorController::class, 'authenticate']);
 Route::post('register', [UserController::class, 'register']);
 
+Route::get('vendor_details/{id?}',[VendorController::class,'vendor_details']);
 Route::get('primary_service_list',[PrimaryServicesMasterController::class,'get_primary_service']);
 Route::get('secondary_service_list',[SecondaryServicesMasterController::class,'get_secondary_service']);
 
 Route::get('vendor_service/{id?}',[VendorSecondaryServiceController::class,'vendor_secondary_service']);
 Route::get('vendor_primary_service/{id?}',[VendorPrimaryServiceController::class,'get_vendor_primary_service']);
+
+Route::post('vendor_create_schedule',[VendorScheduleController::class,'vendor_create_schedule']);
+Route::get('vendor_schudule_list/{id?}',[VendorScheduleController::class,'vendor_schudule_list']);

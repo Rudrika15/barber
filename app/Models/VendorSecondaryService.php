@@ -9,17 +9,4 @@ class VendorSecondaryService extends Model
 {
     use HasFactory;
 
-    function user()
-    {
-        return $this->belongsTo(User::class, 'vendorId');
-    }
-    function primary_services(){
-        return $this->belongsTo(PrimaryServicesMaster::class,'primaryId');
-    }
-    function secondary_services(){
-        return $this->belongsTo(SecondaryServicesMaster::class,'primaryId');
-    }
-    // function secondary_services_list(){
-    //     return $this->hasMany(SecondaryServicesMaster::class,'primaryId');
-    // }
 }

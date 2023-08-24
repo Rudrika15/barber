@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Api\Vendor;
 
-use JWTAuth;
+// use JWTAuth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Exceptions\JWTException;
+// use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Sanctum\HasApiTokens; 
 
 class UserController extends Controller
 {
@@ -41,6 +42,8 @@ class UserController extends Controller
                 'password'=>'-',
             ]);
             $vendor->assignRole('Vendor');
+            $token = $vendor->createToken('MyApp')->plainTextToken;// Generate API token for the user
+            $vendor->assignRole('Vendor');
             //vendor created, return success response
             $vendorProfile=new Vendor();
             $vendorProfile->userId=$vendor->id;
@@ -49,6 +52,7 @@ class UserController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Vendor created successfully',
+                'token'=>$token,
                 'data' => $vendor
             ], Response::HTTP_OK);
         }
@@ -62,7 +66,7 @@ class UserController extends Controller
         }
         
     }
-
+   
     public function authenticate(Request $request)
     {
         $credentials = $request->only('mobile');

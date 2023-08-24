@@ -8,8 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class VendorSchedule extends Model
 {
     use HasFactory;
-    function vendor()
-    {
-        return $this->belongsTo(Vendor::class, 'vendorId');
-    }
 }

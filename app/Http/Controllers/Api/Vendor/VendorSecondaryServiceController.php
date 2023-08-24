@@ -13,8 +13,7 @@ class VendorSecondaryServiceController extends Controller
 {
     function vendor_secondary_service($id){
         try{
-            // $vednorSecondaryService=VendorPrimaryService::with('vendor_secondary_services')
-            //                         ->where('vendorId','=',$id)->get();
+            
             $vednorSecondaryService=User::with('vendor_primary_services.vendor_secondary_services')
                             ->where('id','=',$id)->get();
             if($vednorSecondaryService){
