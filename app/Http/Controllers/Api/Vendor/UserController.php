@@ -19,7 +19,7 @@ class UserController extends Controller
     {
     	//Validate data
         try{
-            $data = $request->only('mobile', 'businessName', 'personFName','personLName','email');
+               $data = $request->only('mobile', 'businessName', 'personFName','personLName','email');
             $validator = Validator::make($data, [
                 'mobile' => 'required',
                 'businessName' => 'required',
