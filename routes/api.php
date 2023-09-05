@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\Api\Vendor\PrimaryServicesMasterController;
-use App\Http\Controllers\Api\Vendor\SecondaryServicesMasterController;
-use App\Http\Controllers\Api\Vendor\UserController;
-use App\Http\Controllers\Api\Vendor\VendorController;
-use App\Http\Controllers\Api\Vendor\VendorPrimaryServiceController;
-use App\Http\Controllers\Api\Vendor\VendorScheduleController;
-use App\Http\Controllers\Api\Vendor\VendorSecondaryServiceController;
+// use App\Http\Controllers\Api\Vendor\PrimaryServicesMasterController;
+// use App\Http\Controllers\Api\Vendor\SecondaryServicesMasterController;
+// use App\Http\Controllers\Api\Vendor\UserController;
+// use App\Http\Controllers\Api\Vendor\VendorController;
+// use App\Http\Controllers\Api\Vendor\VendorPrimaryServiceController;
+// use App\Http\Controllers\Api\Vendor\VendorScheduleController;
+// use App\Http\Controllers\Api\Vendor\VendorSecondaryServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,21 +21,32 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/logout', [AuthController::class, 'logout']);
+Route::get('/getUserProfile', [AuthController::class, 'getUserProfile']); 
+
 });
-// Route::post('vendorregister', [VendorController::class, 'register']);
 
-Route::post('Vendor/login', [VendorController::class, 'authenticate']);
-Route::post('register', [UserController::class, 'register']);
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+// // Route::post('vendorregister', [VendorController::class, 'register']);
 
-Route::get('vendor_details/{id?}',[VendorController::class,'vendor_details']);
-Route::get('primary_service_list',[PrimaryServicesMasterController::class,'get_primary_service']);
-Route::get('secondary_service_list',[SecondaryServicesMasterController::class,'get_secondary_service']);
+// Route::post('Vendor/login', [VendorController::class, 'authenticate']);
+// Route::post('register', [UserController::class, 'register']);
 
-Route::get('vendor_service/{id?}',[VendorSecondaryServiceController::class,'vendor_secondary_service']);
-Route::get('vendor_primary_service/{id?}',[VendorPrimaryServiceController::class,'get_vendor_primary_service']);
+// Route::get('vendor_details/{id?}',[VendorController::class,'vendor_details']);
+// Route::get('primary_service_list',[PrimaryServicesMasterController::class,'get_primary_service']);
+// Route::get('secondary_service_list',[SecondaryServicesMasterController::class,'get_secondary_service']);
 
-Route::post('vendor_create_schedule',[VendorScheduleController::class,'vendor_create_schedule']);
-Route::get('vendor_schudule_list/{id?}',[VendorScheduleController::class,'vendor_schudule_list']);
+// Route::get('vendor_service/{id?}',[VendorSecondaryServiceController::class,'vendor_secondary_service']);
+// Route::get('vendor_primary_service/{id?}',[VendorPrimaryServiceController::class,'get_vendor_primary_service']);
+
+// Route::post('vendor_create_schedule',[VendorScheduleController::class,'vendor_create_schedule']);
+// Route::get('vendor_schudule_list/{id?}',[VendorScheduleController::class,'vendor_schudule_list']);

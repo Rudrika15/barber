@@ -19,7 +19,7 @@ class UserController extends Controller
     {
     	//Validate data
         try{
-               $data = $request->only('mobile', 'businessName', 'personFName','personLName','email');
+            $data = $request->only('mobile', 'businessName', 'personFName','personLName','email');
             $validator = Validator::make($data, [
                 'mobile' => 'required',
                 'businessName' => 'required',
@@ -41,9 +41,9 @@ class UserController extends Controller
                 'email'=>'aaa@gmail.com',
                 'password'=>'-',
             ]);
-            $vendor->assignRole('Vendor');
+            // $vendor->assignRole('Vendor');
             $token = $vendor->createToken('MyApp')->plainTextToken;// Generate API token for the user
-            $vendor->assignRole('Vendor');
+            
             //vendor created, return success response
             $vendorProfile=new Vendor();
             $vendorProfile->userId=$vendor->id;
