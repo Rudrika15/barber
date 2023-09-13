@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('primary_services_masters', function (Blueprint $table) {
+        Schema::create('admins', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('urlIcon	');
-            $table->string('business_key');
+            $table->string('firstName');
+            $table->string('lastName');
+            $table->string('mobile');
+            $table->string('userName')->unique();
+            $table->string('password');
             $table->string('status')->default("Active");
             $table->enum('is_deleted', ['Yes', 'No'])->default('No');
             $table->timestamps();
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('primary_services_masters');
+        Schema::dropIfExists('admins');
     }
 };

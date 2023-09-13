@@ -12,6 +12,42 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Sanctum\HasApiTokens; 
 
+/**
+* @OA\Post(
+     *     path="/api/register",
+     *     summary="Register a new user",
+     *     @OA\Parameter(
+     *         name="mobile",
+     *         in="query",
+     *         description="User's Mobile",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="businessName",
+     *         in="query",
+     *         description="User's Bussiness Name",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="personFName",
+     *         in="query",
+     *         description="User's Person Firstname",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="personLName",
+     *         in="query",
+     *         description="User's Person Lastname",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(response="201", description="User registered successfully"),
+     *     @OA\Response(response="422", description="Validation errors")
+     * )
+     */
 class UserController extends Controller
 {
     //

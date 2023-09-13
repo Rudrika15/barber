@@ -23,6 +23,24 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+
+
+     /**
+     * @OA\Post(
+     *     path="/api/auth/login",
+     *     summary="Authenticate user and generate JWT token",
+     *     tags={"Login"},
+     *     @OA\Parameter(
+     *         name="mobile",
+     *         in="query",
+     *         description="User's email",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(response="200", description="Login successful"),
+     *     @OA\Response(response="401", description="Invalid credentials")
+     * )
+     */
     public function login(Request $request){
 
         // check otp code here 
@@ -44,12 +62,56 @@ class AuthController extends Controller
         return $this->createNewToken($token);
     
     }
+
+
+    // For Rgistration  -------------------------------------
+
+
+
     /**
      * Register a User.
      *
      * @return \Illuminate\Http\JsonResponse
      */
     
+         /**
+    * @OA\Post(
+     *     path="/api/auth/register",
+     *     summary="Register a new user",
+     *     tags={"Register"},
+     *     @OA\Parameter(
+     *         name="mobile",
+     *         in="query",
+     *         description="User's Mobile",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="businessName",
+     *         in="query",
+     *         description="User's Bussiness Name",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="personFName",
+     *         in="query",
+     *         description="User's Person Firstname",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="personLName",
+     *         in="query",
+     *         description="User's Person Lastname",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(response="201", description="User registered successfully"),
+     *     @OA\Response(response="422", description="Validation errors")
+     * )
+     */
+
      public function register(Request $request) {
         $validator = Validator::make($request->all(), [
             'mobile' => 'required',

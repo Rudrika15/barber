@@ -1,0 +1,377 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "APIs For Thrift Store",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/auth/adminlogin": {
+            "post": {
+                "tags": [
+                    "Admin Login"
+                ],
+                "summary": "Authenticate user and generate JWT token",
+                "operationId": "b6706dcb4c0805d1dd0194d52e958280",
+                "parameters": [
+                    {
+                        "name": "userName",
+                        "in": "query",
+                        "description": "User's username",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "User's password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login successful"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/auth/store_primary_service": {
+            "post": {
+                "tags": [
+                    "Primary Services"
+                ],
+                "summary": "Authenticate user and generate JWT token",
+                "operationId": "5929b786daed36cfdf4254b048d89b42",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Primary service name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "business_key",
+                        "in": "query",
+                        "description": "Primary service business_key",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "urlIcon": {
+                                        "description": "Image file",
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Primary Service Created"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/auth/update_primary_service/{id}": {
+            "post": {
+                "tags": [
+                    "Primary Services"
+                ],
+                "summary": "Authenticate user and generate JWT token",
+                "operationId": "00b7214ccd5dd05213d3011dea28825b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Primary service id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Primary service name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "business_key",
+                        "in": "query",
+                        "description": "Primary service business_key",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "urlIcon": {
+                                        "description": "Image file",
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Primary Service Updated"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/auth/get_primary_service": {
+            "get": {
+                "tags": [
+                    "Primary Services"
+                ],
+                "summary": "Authenticate user and generate JWT token",
+                "operationId": "f25617ac1fde384e4334d041f2c3c95f",
+                "responses": {
+                    "200": {
+                        "description": "Primary Service List"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                }
+            }
+        },
+        "/api/auth/delete_primary_service/{id}": {
+            "get": {
+                "tags": [
+                    "Primary Services"
+                ],
+                "summary": "Authenticate user and generate JWT token",
+                "operationId": "6d30ac33dde032c1227e63606da489d7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Primary service id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Primary Service"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Authenticate user and generate JWT token",
+                "operationId": "dd51a484b7fa0f97c7680fdbde14cf5f",
+                "parameters": [
+                    {
+                        "name": "mobile",
+                        "in": "query",
+                        "description": "User's email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login successful"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "Register"
+                ],
+                "summary": "Register a new user",
+                "operationId": "c7bb21a0d87049e161b8e4c9b0d909f2",
+                "parameters": [
+                    {
+                        "name": "mobile",
+                        "in": "query",
+                        "description": "User's Mobile",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "businessName",
+                        "in": "query",
+                        "description": "User's Bussiness Name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "personFName",
+                        "in": "query",
+                        "description": "User's Person Firstname",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "personLName",
+                        "in": "query",
+                        "description": "User's Person Lastname",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully"
+                    },
+                    "422": {
+                        "description": "Validation errors"
+                    }
+                }
+            }
+        },
+        "/api/home": {
+            "post": {
+                "tags": [
+                    "Demo"
+                ],
+                "summary": "Home Page",
+                "parameters": [
+                    {
+                        "name": "personFName",
+                        "in": "query",
+                        "description": "Provied Your Name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login successful"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "summary": "Register a new user",
+                "parameters": [
+                    {
+                        "name": "mobile",
+                        "in": "query",
+                        "description": "User's Mobile",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "businessName",
+                        "in": "query",
+                        "description": "User's Bussiness Name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "personFName",
+                        "in": "query",
+                        "description": "User's Person Firstname",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "personLName",
+                        "in": "query",
+                        "description": "User's Person Lastname",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully"
+                    },
+                    "422": {
+                        "description": "Validation errors"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

@@ -7,9 +7,13 @@
 // use App\Http\Controllers\Api\Vendor\VendorPrimaryServiceController;
 // use App\Http\Controllers\Api\Vendor\VendorScheduleController;
 // use App\Http\Controllers\Api\Vendor\VendorSecondaryServiceController;
+
+use App\Http\Controllers\Api\Admin\AdminController;
+use App\Http\Controllers\Api\Admin\PrimaryServicesMasterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +25,10 @@ use App\Http\Controllers\Api\AuthController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::post('/home',[HomeController::class,'index']);
+
+Route::post('/view',[HomeController::class,'view']);
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
@@ -31,7 +39,14 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout']);
 Route::get('/getUserProfile', [AuthController::class, 'getUserProfile']); 
 
+Route::post('/adminlogin',[AdminController::class,'login']);
+Route::get('/get_primary_service',[PrimaryServicesMasterController::class,'get_primary_service']);
+Route::post('/store_primary_service',[PrimaryServicesMasterController::class,'store_primary_service']);
+Route::post('/update_primary_service/{id}',[PrimaryServicesMasterController::class,'update_primary_service']);
+Route::get('/delete_primary_service/{id}',[PrimaryServicesMasterController::class,'delete_primary_service']);
+
 });
+
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
