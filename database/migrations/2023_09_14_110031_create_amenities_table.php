@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('secondary_services_masters', function (Blueprint $table) {
+        Schema::create('amenities', function (Blueprint $table) {
             $table->id();
-            $table->integer('primary_service_id');
             $table->string('name');
-            $table->string('urlIcon');
+            $table->string('url');
             $table->string('business_key');
             $table->string('status')->default("Active");
             $table->enum('is_deleted', ['Yes', 'No'])->default('No');
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('secondary_services_masters');
+        Schema::dropIfExists('amenities');
     }
 };

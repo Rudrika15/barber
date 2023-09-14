@@ -28,8 +28,8 @@ class AdminController extends Controller
      /**
      * @OA\Post(
      *     path="/api/auth/adminlogin",
-     *     summary="Authenticate user and generate JWT token",
-     *     tags={"Admin Login"},
+     *     summary="Authenticate user",
+     *     tags={"Admin"},
      *     @OA\Parameter(
      *         name="userName",
      *         in="query",

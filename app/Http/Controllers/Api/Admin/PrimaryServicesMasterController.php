@@ -9,10 +9,68 @@ use Illuminate\Support\Facades\Validator;
 
 class PrimaryServicesMasterController extends Controller
 {
+
+
+    /**
+     * @OA\Get(
+     *     path="/api/auth/get_primary_service/{sortOrder}",
+     *     summary="Primary service list",
+     *     tags={"Primary Services"},
+     *     @OA\Parameter(
+     *         name="sortOrder",
+     *         in="query",
+     *         description="Primary service id",
+     *     ),
+     *     @OA\Response(response="200", description="Primary Service List"),
+     *     @OA\Response(response="401", description="Invalid Data")
+     * )
+     */
+    function get_primary_service(Request $request){
+        try{
+           $primaryService=PrimaryServicesMaster::query();
+            if ($request->sortOrder) {
+                $getOrder =  $request->sortOrder;
+                if ($getOrder == "A" || $getOrder=="a")
+                    $primaryService->orderBy('name', 'asc'); 
+                else if ($getOrder == "Z" || $getOrder=="z")
+                    $primaryService->orderBy('name', 'desc'); 
+                else
+                    $primaryService->orderBy('name', 'asc'); 
+            } else {
+                $primaryService->orderBy('name', 'desc'); 
+            }
+            $perPage = $request->input('perPage', 2); 
+            $primaryService = $primaryService->paginate($perPage); 
+            if($primaryService){
+                return response([
+                    'success' => true,
+                    'status' => 200,
+                    'message' => 'List Of Primary Service Master !',
+                    'data' => $primaryService
+                ]);
+            }else{
+                return response([
+                    'success' => false,
+                    'status' => 400,
+                    'message' => ['No Data Found !'],
+                    'data' => $primaryService
+                ]);
+            }
+        }catch(\Exception $e){
+            return response([
+                'success'=>false,
+                'message'=>'An error occurred while processing your request.',
+                'status'=>500,
+                'error'=>$e->getMessage()
+            ]);
+        }
+    }
+
+    
     /**
      * @OA\Post(
      *     path="/api/auth/store_primary_service",
-     *     summary="Authenticate user and generate JWT token",
+     *     summary="Store primary service",
      *     tags={"Primary Services"},
      *     @OA\Parameter(
      *         name="name",
@@ -59,10 +117,9 @@ class PrimaryServicesMasterController extends Controller
     
             $primaryService=new PrimaryServicesMaster();
             $primaryService->name=$request->name;
-            $primaryService->urlIcon=$request->urlIcon;
             if ($request->urlIcon) {
                 $primaryService->urlIcon = time() . '.' . $request->urlIcon->extension();
-                $request->urlIcon->move(public_path('primaryIcon'),  $primaryService->urlIcon);
+                $request->urlIcon->move(env('PRIMARY_ICON_URL'),$primaryService->urlIcon);
             }   
             $primaryService->business_key=$request->business_key;
             $primaryService->save();
@@ -94,7 +151,7 @@ class PrimaryServicesMasterController extends Controller
     /**
      * @OA\Post(
      *     path="/api/auth/update_primary_service/{id}",
-     *     summary="Authenticate user and generate JWT token",
+     *     summary="Update Primary service",
      *     tags={"Primary Services"},
      *     @OA\Parameter(
      *         name="id",
@@ -148,9 +205,11 @@ class PrimaryServicesMasterController extends Controller
             $primaryService->name=$request->name;
             if ($request->urlIcon) {
                 $primaryService->urlIcon = time() . '.' . $request->urlIcon->extension();
-                $request->urlIcon->move(public_path('primaryIcon'),  $primaryService->urlIcon);
+                $request->urlIcon->move(env('PRIMARY_ICON_URL'),  $primaryService->urlIcon);
             }   
             $primaryService->business_key=$request->business_key;
+            $primaryService->status="Active";
+            $primaryService->is_deleted="No";
             $primaryService->save();
 
             if ($primaryService) {
@@ -176,52 +235,16 @@ class PrimaryServicesMasterController extends Controller
         }
     }
 
-    /**
-     * @OA\Get(
-     *     path="/api/auth/get_primary_service",
-     *     summary="Authenticate user and generate JWT token",
-     *     tags={"Primary Services"},
-     *     @OA\Response(response="200", description="Primary Service List"),
-     *     @OA\Response(response="401", description="Invalid Data")
-     * )
-     */
-    function get_primary_service(){
-        try{
-            $primaryService=PrimaryServicesMaster::all();
-            if($primaryService){
-                return response([
-                    'success' => true,
-                    'status' => 200,
-                    'message' => 'List Of Primary Service Master !',
-                    'data' => $primaryService
-                ]);
-            }else{
-                return response([
-                    'success' => false,
-                    'status' => 400,
-                    'message' => ['No Data Found !'],
-                    'data' => $primaryService
-                ]);
-            }
-        }catch(\Exception $e){
-            return response([
-                'success'=>false,
-                'message'=>'An error occurred while processing your request.',
-                'status'=>500,
-                'error'=>$e->getMessage()
-            ]);
-        }
-    }
-
+    
 
     /**
      * @OA\Get(
      *     path="/api/auth/delete_primary_service/{id}",
-     *     summary="Authenticate user and generate JWT token",
+     *     summary="Delete primary service",
      *     tags={"Primary Services"},
      *     @OA\Parameter(
      *         name="id",
-     *         in="query",
+     *         in="path",
      *         description="Primary service id",
      *         required=true,
      *         @OA\Schema(type="integer")
@@ -233,16 +256,6 @@ class PrimaryServicesMasterController extends Controller
     public function delete_primary_service($id){
         $primaryService = PrimaryServicesMaster::find($id);
         $primaryService->status = "Deleted";
-       
-        if (!$primaryService) {
-            return response([
-                'success' => false,
-                'status' => 404, // Use 404 Not Found status code for resource not found
-                'message' => 'Primary Service not found!',
-                'data' => ['id' => $id]
-            ]);
-        }
-    
         $primaryService->is_deleted = "Yes";
         $primaryService->save();
         if($primaryService){
@@ -261,4 +274,19 @@ class PrimaryServicesMasterController extends Controller
             ]);
         }
     }
+
+
+     // if($request->sortBy && in_array($request->sortBy,['name','created_at'])){
+            //     $sortBy=$request->sortBy;
+            // }else{
+            //     $sortBy='name';
+            // }
+
+            // if($request->sortOrder && in_array($request->sortOrder,['asc','desc'])){
+            //     $sortOrder=$request->sortOrder;
+            // }else{
+            //     $sortOrder='desc';
+            // }
+            //$primaryServiceCount=$primaryService->count();
+
 }

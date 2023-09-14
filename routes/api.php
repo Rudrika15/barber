@@ -9,7 +9,9 @@
 // use App\Http\Controllers\Api\Vendor\VendorSecondaryServiceController;
 
 use App\Http\Controllers\Api\Admin\AdminController;
+use App\Http\Controllers\Api\Admin\AmenityController;
 use App\Http\Controllers\Api\Admin\PrimaryServicesMasterController;
+use App\Http\Controllers\Api\Admin\SecondaryServicesMasterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -40,10 +42,23 @@ Route::post('/logout', [AuthController::class, 'logout']);
 Route::get('/getUserProfile', [AuthController::class, 'getUserProfile']); 
 
 Route::post('/adminlogin',[AdminController::class,'login']);
-Route::get('/get_primary_service',[PrimaryServicesMasterController::class,'get_primary_service']);
+/* Primary Service */
+Route::get('/get_primary_service/{sortOrder}',[PrimaryServicesMasterController::class,'get_primary_service']);
 Route::post('/store_primary_service',[PrimaryServicesMasterController::class,'store_primary_service']);
 Route::post('/update_primary_service/{id}',[PrimaryServicesMasterController::class,'update_primary_service']);
 Route::get('/delete_primary_service/{id}',[PrimaryServicesMasterController::class,'delete_primary_service']);
+
+/* Secondary Service */
+Route::get('/get_secondary_service/{sortOrder}',[SecondaryServicesMasterController::class,'get_secondary_service']);
+Route::post('/store_secondary_service',[SecondaryServicesMasterController::class,'store_secondary_service']);
+Route::post('/update_secondary_service/{id}',[SecondaryServicesMasterController::class,'update_secondary_service']);
+Route::get('/delete_secondary_service/{id}',[SecondaryServicesMasterController::class,'delete_secondary_service']);
+
+/* Amenities */
+Route::get('/get_amenities/{sortOrder}',[AmenityController::class,'get_amenities']);
+Route::post('/store_amenities',[AmenityController::class,'store_amenities']);
+Route::post('/update_amenities/{id}',[AmenityController::class,'update_amenities']);
+Route::get('/delete_amenities/{id}',[AmenityController::class,'delete_amenities']);
 
 });
 

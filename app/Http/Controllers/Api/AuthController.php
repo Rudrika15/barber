@@ -29,7 +29,7 @@ class AuthController extends Controller
      * @OA\Post(
      *     path="/api/auth/login",
      *     summary="Authenticate user and generate JWT token",
-     *     tags={"Login"},
+     *     tags={"Vendor"},
      *     @OA\Parameter(
      *         name="mobile",
      *         in="query",
@@ -78,7 +78,7 @@ class AuthController extends Controller
     * @OA\Post(
      *     path="/api/auth/register",
      *     summary="Register a new user",
-     *     tags={"Register"},
+     *     tags={"Vendor"},
      *     @OA\Parameter(
      *         name="mobile",
      *         in="query",

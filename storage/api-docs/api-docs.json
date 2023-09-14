@@ -8,9 +8,9 @@
         "/api/auth/adminlogin": {
             "post": {
                 "tags": [
-                    "Admin Login"
+                    "Admin"
                 ],
-                "summary": "Authenticate user and generate JWT token",
+                "summary": "Authenticate user",
                 "operationId": "b6706dcb4c0805d1dd0194d52e958280",
                 "parameters": [
                     {
@@ -42,12 +42,189 @@
                 }
             }
         },
+        "/api/auth/get_amenities/{sortOrder}": {
+            "get": {
+                "tags": [
+                    "Amenities"
+                ],
+                "summary": "Amenities list",
+                "operationId": "ba989bcfbb96c5904c789409ee37e4c4",
+                "parameters": [
+                    {
+                        "name": "sortOrder",
+                        "in": "query",
+                        "description": "Amenities id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Amenities List"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                }
+            }
+        },
+        "/api/auth/store_amenities": {
+            "post": {
+                "tags": [
+                    "Amenities"
+                ],
+                "summary": "Store Amenities",
+                "operationId": "5d8660a071dc99f5c2314d0eb4f8ab96",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Amenities name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "url",
+                        "in": "query",
+                        "description": "Amenities URL",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "business_key",
+                        "in": "query",
+                        "description": "Amenities business_key",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Amenities Created"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/auth/update_amenities/{id}": {
+            "post": {
+                "tags": [
+                    "Amenities"
+                ],
+                "summary": "Update Amenities",
+                "operationId": "da681f74d4f02317dc9a01a7eca0fe1f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Amenities id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Amenities name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "url",
+                        "in": "query",
+                        "description": "Amenities url",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "business_key",
+                        "in": "query",
+                        "description": "Amenities business_key",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Amenities Updated"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/auth/delete_amenities/{id}": {
+            "get": {
+                "tags": [
+                    "Amenities"
+                ],
+                "summary": "Delete Amenities",
+                "operationId": "fc767e39f94aa2f9a3bc849fe330cfe1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Amenities id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Primary Service"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/auth/get_primary_service/{sortOrder}": {
+            "get": {
+                "tags": [
+                    "Primary Services"
+                ],
+                "summary": "Primary service list",
+                "operationId": "cc750a536a2581750a05aca3ffe0d9a6",
+                "parameters": [
+                    {
+                        "name": "sortOrder",
+                        "in": "query",
+                        "description": "Primary service id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Primary Service List"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                }
+            }
+        },
         "/api/auth/store_primary_service": {
             "post": {
                 "tags": [
                     "Primary Services"
                 ],
-                "summary": "Authenticate user and generate JWT token",
+                "summary": "Store primary service",
                 "operationId": "5929b786daed36cfdf4254b048d89b42",
                 "parameters": [
                     {
@@ -100,7 +277,7 @@
                 "tags": [
                     "Primary Services"
                 ],
-                "summary": "Authenticate user and generate JWT token",
+                "summary": "Update Primary service",
                 "operationId": "00b7214ccd5dd05213d3011dea28825b",
                 "parameters": [
                     {
@@ -156,34 +333,17 @@
                 }
             }
         },
-        "/api/auth/get_primary_service": {
-            "get": {
-                "tags": [
-                    "Primary Services"
-                ],
-                "summary": "Authenticate user and generate JWT token",
-                "operationId": "f25617ac1fde384e4334d041f2c3c95f",
-                "responses": {
-                    "200": {
-                        "description": "Primary Service List"
-                    },
-                    "401": {
-                        "description": "Invalid Data"
-                    }
-                }
-            }
-        },
         "/api/auth/delete_primary_service/{id}": {
             "get": {
                 "tags": [
                     "Primary Services"
                 ],
-                "summary": "Authenticate user and generate JWT token",
+                "summary": "Delete primary service",
                 "operationId": "6d30ac33dde032c1227e63606da489d7",
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "description": "Primary service id",
                         "required": true,
                         "schema": {
@@ -201,10 +361,195 @@
                 }
             }
         },
+        "/api/auth/get_secondary_service/{sortOrder}": {
+            "get": {
+                "tags": [
+                    "Secondary Services"
+                ],
+                "summary": "Secondary service list",
+                "operationId": "08f402262bddee3a269e16fbc4e93a31",
+                "parameters": [
+                    {
+                        "name": "sortOrder",
+                        "in": "query",
+                        "description": "Primary service id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Primary Service List"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                }
+            }
+        },
+        "/api/auth/store_secondary_service": {
+            "post": {
+                "tags": [
+                    "Secondary Services"
+                ],
+                "summary": "Store secondary service",
+                "operationId": "443ed57ebe9636a24daa9f7aff80d785",
+                "parameters": [
+                    {
+                        "name": "primary_service_id",
+                        "in": "query",
+                        "description": "Primary service Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "secondaryName",
+                        "in": "query",
+                        "description": "Secondary service name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "business_key",
+                        "in": "query",
+                        "description": "Secondary service business_key",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "urlIcon": {
+                                        "description": "Image file",
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Seondary Service Created"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/auth/update_secondary_service/{id}": {
+            "post": {
+                "tags": [
+                    "Secondary Services"
+                ],
+                "summary": "Update secondary service",
+                "operationId": "e2b857a7c92236d20683667b55002263",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Secondary service Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "primary_service_id",
+                        "in": "query",
+                        "description": "Primary service Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "secondaryName",
+                        "in": "query",
+                        "description": "Secondary service name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "business_key",
+                        "in": "query",
+                        "description": "Secondary service business_key",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "urlIcon": {
+                                        "description": "Image file",
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Seondary Service Updated"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/auth/delete_secondary_service/{id}": {
+            "get": {
+                "tags": [
+                    "Secondary Services"
+                ],
+                "summary": "Delete secondary service",
+                "operationId": "7e4f5bafe7ae26bab77acce3342225ef",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Primary service id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete Secondary Service"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
         "/api/auth/login": {
             "post": {
                 "tags": [
-                    "Login"
+                    "Vendor"
                 ],
                 "summary": "Authenticate user and generate JWT token",
                 "operationId": "dd51a484b7fa0f97c7680fdbde14cf5f",
@@ -232,7 +577,7 @@
         "/api/auth/register": {
             "post": {
                 "tags": [
-                    "Register"
+                    "Vendor"
                 ],
                 "summary": "Register a new user",
                 "operationId": "c7bb21a0d87049e161b8e4c9b0d909f2",
